@@ -1,0 +1,441 @@
+/* static/css/styles.css */
+
+/* --- Global Styles --- */
+body {
+    font-family: 'Calibri', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f4f6f9;
+    font-size: 0.875rem;
+    color: #333;
+}
+
+.navbar-brand {
+    font-weight: 500;
+}
+
+.main-content-wrapper {
+    padding-top: 1rem; 
+}
+
+.card {
+    border: none; 
+    border-radius: 0.375rem; 
+    /* height: 100%; Ensure cards in .row.d-flex fill height */
+}
+.col-md-6.d-flex.flex-column .card { /* Target cards within the flex column specifically */
+    flex-grow: 1;
+}
+
+.card-header {
+    border-bottom: 1px solid #e9ecef; 
+    padding: 0.75rem 1.25rem;
+}
+.card-header h5 {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+.card-body {
+    padding: 1rem; /* Default padding */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Vendor Info Card Height Adjustment attempt */
+#tapsifood-vendor-info-card .card-body,
+#snappfood-vendor-info-card .card-body {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+/* If fixed height is absolutely necessary for vendor info cards (use with caution)
+#tapsifood-vendor-info-card,
+#snappfood-vendor-info-card {
+    min-height: 480px; 
+}
+*/
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    color: #555;
+    font-size: 0.8rem; /* Slightly smaller labels */
+}
+.form-control-sm {
+    font-size: 0.8rem;
+}
+.form-check-label {
+    font-size: 0.85rem;
+}
+.rtl-input,
+.rtl-input::placeholder,
+textarea.rtl-input  {
+    font-family: 'Calibri', 'Tahoma', sans-serif; 
+    direction: rtl;
+    text-align: right;
+}
+
+/* --- Platform Specific Colors --- */
+/* TapsiFood: Orange theme */
+.bg-tapsifood { background-color: #FF8C00 !important; /* Dark Orange */ }
+.text-tapsifood { color: #E67E22 !important; /* Pumpkin Orange */ }
+.btn-tapsifood { background-color: #FF8C00; color: white; border-color: #FF8C00; }
+.btn-tapsifood:hover { background-color: #E67E22; border-color: #D35400; color: white; }
+.btn-tapsifood-outline { color: #E67E22; border-color: #FFB74D; } /* Lighter border for outline */
+.btn-tapsifood-outline:hover { background-color: #FFF3E0; color: #D35400; border-color: #E67E22; }
+.bg-tapsifood-light { background-color: #FFF3E0; /* Light orange/peach */ }
+#tapsifood-vendor-info-card .card-header,
+#tapsifood-menu-pane .d-flex.justify-content-between {
+    border-left: 5px solid #E67E22; /* Accent border */
+}
+
+
+/* SnappFood: Green theme */
+.bg-snappfood { background-color: #28A745 !important; /* Green */ }
+.text-snappfood { color: #218838 !important; /* Darker Green */ }
+.btn-snappfood { background-color: #28A745; color: white; border-color: #28A745; }
+.btn-snappfood:hover { background-color: #218838; border-color: #1E7E34; color: white;}
+.btn-snappfood-outline { color: #218838; border-color: #81C784; } /* Lighter border for outline */
+.btn-snappfood-outline:hover { background-color: #E9F5EB; color: #1E7E34; border-color: #218838;}
+.bg-snappfood-light { background-color: #E9F5EB; /* Light green */ }
+#snappfood-vendor-info-card .card-header,
+#snappfood-menu-pane .d-flex.justify-content-between {
+    border-left: 5px solid #218838; /* Accent border */
+}
+
+
+/* Menu Panes and Scroll Container Height */
+#tapsifood-menu-pane, #snappfood-menu-pane {
+    position: relative; 
+    display: flex;
+    flex-direction: column; 
+    /* Ensure the column itself can grow if its content needs more space than its sibling column */
+    /* This is usually handled by Bootstrap's row/col, but being explicit can help */
+}
+
+.menu-items-scroll-container {
+    /* Let's set a very large min-height to force the panel to be tall. */
+    /* This will likely make the page scroll significantly. */
+    min-height: 1000px; /* TRY THIS - was 450px, this is a big increase */
+    max-height: 85vh; /* Allow it to grow even larger if viewport is very tall, was 75vh */
+    overflow-y: auto;
+    padding: 10px; 
+    border: 1px solid #eee;
+    border-radius: .25rem;
+    background-color: #fff;
+    scroll-behavior: smooth; 
+    flex-grow: 1; 
+}
+.menu-items-scroll-container .initial-message {
+    padding-top: 3rem;
+    color: #6c757d;
+}
+.menu-items-scroll-container .initial-message h4,
+.menu-items-scroll-container .initial-message h5 { 
+    color: #343a40;
+    font-weight: 500;
+}
+
+/* Sticky Category Navigation Styles */
+.category-quick-nav {
+    position: sticky;
+    top: 0; /* Stick to the top of its pane */
+    background-color: rgba(255, 255, 255, 0.97); /* Slightly transparent white */
+    padding: 6px 8px; /* Reduced padding */
+    border-bottom: 1px solid #e0e0e0;
+    z-index: 5; /* Above category headers but below main navbar/modals */
+    overflow-x: auto; /* Allow horizontal scrolling if many categories */
+    white-space: nowrap; /* Keep categories on one line */
+    margin-bottom: 8px; /* Space below nav */
+}
+
+.category-quick-nav-button {
+    font-size: 0.7rem; /* Smaller font for nav buttons */
+    padding: 0.2rem 0.45rem; /* Adjusted padding */
+    margin-right: 4px;
+    border-radius: 0.8rem; /* Pill shape */
+    opacity: 0.9;
+    transition: opacity 0.2s, background-color 0.2s;
+    border-width: 1px;
+    border-style: solid;
+    cursor: pointer;
+}
+.category-quick-nav-button:hover {
+    opacity: 1;
+}
+
+/* Platform-specific colors for quick nav buttons */
+#tapsifood-menu-pane .category-quick-nav-button {
+    background-color: #FFF3E0; /* Light orange */
+    border-color: #FFCC80; /* Slightly darker orange for border */
+    color: #E67E22; 
+}
+#tapsifood-menu-pane .category-quick-nav-button:hover {
+    background-color: #FFE0B2; /* Lighter orange for hover */
+    border-color: #FFB74D;
+}
+
+#snappfood-menu-pane .category-quick-nav-button {
+    background-color: #E9F5EB; /* Light green */
+    border-color: #A5D6A7; /* Slightly darker green for border */
+    color: #218838; 
+}
+#snappfood-menu-pane .category-quick-nav-button:hover {
+    background-color: #C8E6C9; /* Lighter green for hover */
+    border-color: #81C784;
+}
+
+
+.category-section { 
+    /* Styles for the wrapper of a category header and its items */
+}
+.category-header {
+    font-family: 'Calibri', 'Tahoma', sans-serif; 
+    font-size: 1.2rem; /* Slightly smaller */
+    font-weight: 600;
+    /* color set by platform text color */
+    margin-top: 0.75rem; /* Reduced margin */
+    margin-bottom: 0rem; 
+    padding: 0.4rem 0.2rem; /* Reduced padding */
+    border-bottom: 2px solid #e0e0e0;
+    cursor: pointer; 
+    user-select: none; 
+}
+/* Platform specific category header colors */
+#tapsifood-menu-pane .category-header { color: #E67E22; }
+#snappfood-menu-pane .category-header { color: #218838; }
+
+
+.category-toggle-icon {
+    font-size: 0.9rem; /* Slightly smaller */
+    margin-right: 0.4rem; 
+    display: inline-block;
+    transition: transform 0.2s ease-in-out;
+    width: 16px; /* Adjusted width */
+    text-align: center;
+}
+.category-header.collapsed .category-toggle-icon {
+    transform: rotate(-90deg);
+}
+.items-in-category-container {
+    transition: max-height 0.3s ease-out, opacity 0.2s ease-out, margin-top 0.3s ease-out, padding-top 0.3s ease-out;
+    max-height: 3000px; 
+    overflow: hidden; 
+    opacity: 1;
+    padding-top: 0.75rem; 
+}
+.category-section.collapsed .items-in-category-container {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0 !important; 
+    padding-top: 0 !important; 
+    padding-bottom: 0 !important;
+}
+.category-header.rtl-text { 
+    text-align: right;
+    direction: rtl;
+}
+.category-header.rtl-text .category-toggle-icon {
+    margin-right: 0;
+    margin-left: 0.4rem; /* Adjusted margin */
+}
+
+.item-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e7ef; 
+    border-radius: 0.375rem;
+    padding: 0.8rem; /* Slightly reduced padding */
+    margin-bottom: 0.8rem; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 1px 2px rgba(0,0,0,0.03); 
+    transition: box-shadow 0.2s ease-in-out;
+}
+.item-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.05);
+}
+/* Platform specific item card accents */
+#tapsifood-menu-pane .item-card { border-left: 3px solid #FFB74D; /* Lighter Orange */ }
+#snappfood-menu-pane .item-card { border-left: 3px solid #81C784; /* Lighter Green */ }
+
+
+.item-card .item-title-input {
+    font-weight: 600;
+    font-size: 1.0em; /* Slightly smaller */
+    margin-bottom: 0.25rem; /* Reduced margin */
+    border: 1px solid transparent; 
+    padding: 0.2rem 0.1rem; /* Reduced padding */
+}
+.item-card .item-title-input:focus {
+    border: 1px solid #0d6efd; 
+    box-shadow: none;
+}
+
+.item-card .item-id-display {
+    font-size: 0.7em; /* Slightly smaller */
+    color: #888;
+    text-align: right; 
+}
+
+.item-card .item-description-textarea {
+    font-size: 0.8em; /* Slightly smaller */
+    min-height: 50px; /* Reduced min-height */
+    margin-bottom: 0.5rem; /* Reduced margin */
+    color: #555;
+    resize: vertical; 
+    border: 1px solid #ced4da;
+}
+.item-card .item-title-input.rtl-input, 
+.item-card .item-description-textarea.rtl-input {
+    font-family: 'Calibri', 'Tahoma', sans-serif;
+}
+.item-card .item-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items-center;
+}
+.item-card .item-controls .input-group-sm .form-control,
+.item-card .item-controls .input-group-sm .input-group-text {
+    font-size: 0.75rem; /* Slightly smaller */
+}
+
+.item-card .item-price-input-group input,
+.item-card .item-rating-input-group input {
+    width: 70px !important; /* Slightly reduced width */
+    text-align: left; 
+    direction: ltr;
+}
+.item-card input[type=number]::-webkit-inner-spin-button,
+.item-card input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.item-card input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Modal Styling */
+.modal-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+.modal-title {
+    font-weight: 500;
+}
+
+/* Toppings Modal (Snappfood only) */
+#toppingsModalBody .topping-group {
+    border: 1px solid #e0e7ef;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+    background-color: #fdfdff; 
+}
+#toppingsModalBody .topping-group-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap; 
+}
+#toppingsModalBody .topping-group-header .form-control-sm {
+    margin-right: 0.5rem;
+    margin-bottom: 0.3rem; 
+}
+#toppingsModalBody .topping-group-header .group-title-input {
+    flex-grow: 1; min-width: 150px;
+}
+#toppingsModalBody .topping-group-header .group-id-input.form-control-sm {
+    width: auto !important; 
+    flex-basis: 120px;
+}
+#toppingsModalBody .topping-group-header .group-count-input {
+    width: 65px !important;
+}
+
+
+#toppingsModalBody .topping-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dotted #e9ecef;
+}
+#toppingsModalBody .topping-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+#toppingsModalBody .topping-item .form-control-sm {
+    margin-right: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+#toppingsModalBody .topping-item .topping-title-input {
+    flex-grow: 1; min-width: 120px;
+}
+#toppingsModalBody .topping-item .topping-desc-input {
+    flex-grow: 2; min-width: 150px;
+}
+#toppingsModalBody .topping-item .topping-price-input {
+    width: 85px !important;
+}
+#toppingsModalBody .topping-item .topping-id-input.form-control-sm {
+    width: auto !important; flex-basis: 120px;
+}
+
+#toppingsModalBody .topping-group-header .group-title-input.rtl-input,
+#toppingsModalBody .topping-item .topping-title-input.rtl-input,
+#toppingsModalBody .topping-item .topping-desc-input.rtl-input {
+    font-family: 'Calibri', 'Tahoma', sans-serif;
+}
+
+/* Work Schedule Styling (within Modal) */
+.work-schedule-editor-pane {
+    max-height: 60vh; /* Max height for schedule pane inside modal */
+    overflow-y: auto;
+    padding-right: 10px; /* For scrollbar */
+}
+.work-schedule-editor-pane .day-schedule-container .day-label {
+    font-weight: 500;
+    width: 80px; /* Adjusted width */
+    margin-right: 0.5rem; 
+    font-size: 0.8rem;
+}
+
+.work-schedule-editor-pane .shifts-for-day-container .shift-row {
+    /* Using d-flex from script.js */
+}
+
+.work-schedule-editor-pane .shifts-for-day-container .schedule-time-input {
+    width: 100px !important; /* Adjusted width */
+    flex-grow: 0; 
+    flex-shrink: 0; 
+}
+
+.work-schedule-editor-pane .shifts-for-day-container .shift-row .time-separator {
+    padding: 0 0.25rem; 
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.work-schedule-editor-pane .shifts-for-day-container .shift-row .remove-shift-btn {
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding: 0.2rem 0.4rem; /* Smaller button */
+}
+.work-schedule-editor-pane .add-shift-btn {
+    padding: 0.2rem 0.4rem; /* Smaller button */
+    font-size: 0.75rem;
+}
+.work-schedule-editor-pane .form-check-input {
+    margin-top: 0.1rem; /* Align checkbox better with smaller label */
+}
+
+
+#sf-original-identifier-row .form-control-plaintext,
+#tf-original-identifier-row .form-control-plaintext {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.bottom-actions {
+    position: sticky;
+    bottom: 0;
+    background-color: #f0f2f5; /* Slightly different bg */
+    padding: 0.75rem 1rem; /* Adjusted padding */
+    border-top: 1px solid #dee2e6;
+    z-index: 10; 
+}
